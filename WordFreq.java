@@ -137,6 +137,7 @@ public class AssignmentGMO {
     public static void main(String args[]) throws IOException{
         long time1 = System.currentTimeMillis();
         Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the Number of top frequency words to be dispalyed");
         int k = sc.nextInt();
         List<String> line = Collections.emptyList();
         List<String> ls = new ArrayList<String>();
