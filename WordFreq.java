@@ -1,13 +1,12 @@
-
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class AssignmentGMO {
 
-    TrieNode root; // global variable defining the root of the trie structure
+    TrieNode root; // global variable defining the root of the trie structurea
 
     class MaxHeap{
         int size;    // capacity of the heap(int this case it's 20)
@@ -137,22 +136,33 @@ public class AssignmentGMO {
 
     public static void main(String args[]) throws IOException{
         long time1 = System.currentTimeMillis();
-        int k = 20;
-        FileInputStream fis = null;
+        Scanner sc = new Scanner(System.in);
+        int k = sc.nextInt();
+        List<String> line = Collections.emptyList();
         List<String> ls = new ArrayList<String>();
-        StringBuilder sb = new StringBuilder();
+       // StringBuilder sb = new StringBuilder();
         AssignmentGMO ob = new AssignmentGMO();
-
+        String fileName= args[0];
         try{
-            fis = new FileInputStream(args[0]);
-            int c;
-            while((c=fis.read()) != -1){
-                if((c>=65 && c<=90) || (c>=97 && c<=122)){
-                    sb.append((char)c);
-                }
-                else {
-                    if(sb.length()>0){
-                        ls.add(sb.toString().toLowerCase());
+            line = Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8 );
+            int n=line.size();
+            //  System.out.println(line.get(2).trim().length());
+            for(int i=0;i<n;i++){
+                String w = line.get(i).toLowerCase();
+
+                w = w.trim();
+                StringBuilder sb = new StringBuilder();
+                for(int j=0;j<w.length();j++){
+                    if(!(Character.isAlphabetic(w.charAt(j))))
+                        continue;
+                    char c = w.charAt(j);
+                    sb.append(c);
+                    if(j<w.length()-1 && !(Character.isAlphabetic(w.charAt(j+1)))){
+                        ls.add(sb.toString());
+                        sb.delete(0,sb.length());
+                    }
+                    if(j==w.length()-1){
+                        ls.add(sb.toString());
                         sb.delete(0,sb.length());
                     }
                 }
